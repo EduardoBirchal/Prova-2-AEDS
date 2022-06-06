@@ -49,24 +49,23 @@ int main(int argc, char** argv) {
 
     printf("Digite '1' para inserir um numero, '2' para  retirar e '0' para finalizar programa.\n");
 
-    arquivo = fopen("entrada.bin", "wb");
+    arquivo = fopen("entrada.bin", "r");
     if (arquivo == NULL) {
         printf("Erro de arquivo!");
         return 1;
     }
-    fclose(arquivo); // Cria e depois fecha o arquivo. Se o arquivo for nulo, algo deu errado, então fecha o programa.
 
     do {
 
-        fread(&cod, sizeof(int), 1, arquivo);
+        fscanf(arquivo, "%i", &cod);
 
         if (cod == 1) {
-            fread(&entrada[e], sizeof(int), 1, arquivo);
+            fscanf(arquivo, "%i", &entrada[e]);
             e++;
         }
 
         if (cod == 2) {
-            fread(&saida[s], sizeof(int), 1, arquivo);
+            fscanf(arquivo, "%i", &saida[s]);
             s++;
         }
 
@@ -79,5 +78,6 @@ int main(int argc, char** argv) {
 
     }
 
+    fclose(arquivo);
     return SUCESSO;
 }
