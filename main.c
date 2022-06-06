@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
+
 #define SUCESSO 0
 #define True 1
 #define False -1
