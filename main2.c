@@ -105,21 +105,28 @@ int main(int argc, char** argv){
 
     printf("Digite '1' para inserir um numero, '2' para  retirar e '0' para finalizar programa.\n");
 
-    do{
+    /*======================================================*/
+    do {
+        printf("Digite 0 para sair/nNumero de instrucoes: ");
+        scanf("%i", &numInstrucoes);
 
-        scanf("%d", &cod);
+        for (int i = 0; i < numInstrucoes; i++) {
 
-        if(cod == 1){
-            scanf("%d", &entrada[e]);
-            e++;
+            printf("> ");
+            scanf("%i %i", &cod, &num);
+
+            if (cod == 1) {
+                entrada[e] = num;
+                e++;
+            }
+
+            if (cod == 2) {
+
+            }
+
         }
-
-        if(cod == 2){
-            scanf("%d", &saida[s]);
-            s++;
-        }
-        
-    }while(cod !=0);
+    } while (numInstrucoes != 0);
+    /*======================================================*/
 
     if(compara_se_impossible(entrada, saida, e, s) == False){
         printf("Impossible\n");
@@ -142,6 +149,7 @@ int main(int argc, char** argv){
             }
         }
     }
-
+    
+    
     return SUCESSO;
 }
