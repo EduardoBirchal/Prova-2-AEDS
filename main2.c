@@ -3,7 +3,7 @@
 #include <limits.h>
 #define SUCESSO 0
 #define True 1
-#define False -1
+#define False 0
 #define Tamanho_Vet (500)
 
 int maiorElemento(int ent[], int e) {
@@ -17,115 +17,73 @@ int maiorElemento(int ent[], int e) {
     return maior;
 }
 
-int compara_se_impossible(int ent[], int sai[], int e, int s){
+int compara_pilha(int ent[], int n, int e){
 
-    int i, j, comp = 0;
+    int i = e;
 
-    for(i = 0; i < s; i++){
-        for(j = 0; j<e; j++){
-            if(sai[i] == ent[j]){
-                comp++;
-            }
-        }
-    }
-
-    if(comp == s){
+    if(n == ent[i]){
         return True;
     }
-    else return False;
+    
 
-
+    return False;
 }
 
+int compara_fila(int ent[], int n, int s){
 
-int compara_pilha(int ent[], int sai[], int e, int s){
+    int i;
 
-    int i, j, comp_pilha=0;
-
-    for(i=e, j=0; i>=0, j < s; i--, j++){ //percorre i e j ao mesmo tempo
-  
-        if(sai[j] == ent[i]){
-            comp_pilha++;
-        }
+    if(s == 0){
+        s++;
     }
 
-    if(comp_pilha == s){
+    for(i=0; i<s; i++){
+        if(n == ent[i]){
+            return True;
+        }
+    }
+    return False;
+}
+
+int prioridade(int ent[], int n, int e){
+
+
+    if(n == maiorElemento(ent, e)){
         return True;
     }
-    else return False;
+
+    return False;
+
 }
+void exclui_vetor(int ent[], int n, int e){
 
-int compara_fila(int ent[], int sai[], int s){
+    int aux;
 
-    int i, comp_fila = 0;
-
-    for(i = 0; i < s; i++){
-        if(sai[i] == ent[i]){
-            comp_fila++;
+    for(int k = 0; k<e; k++){
+        if(ent[k] == n){
+            n=0;
+            ent[k] = 0;
+            aux = ent[k];
+            ent[k] = ent[k +1];
+            ent[k + 1] = aux;
+                
         }
+        printf("%d\n", ent[k]);
     }
-
-    if(comp_fila == s){
-        return True;
-    }
-    else return False;
-
 }
 
-int prioridade(int ent[], int sai[], int e, int s){
+int main(int argc, char** argv){
+    
+    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, comp_p, comp_f, comp_fp, num, numInstrucoes; 
 
-    int i, j, comp_prio = 0;
-
-    for(i = 0; i < s; i++){
-        if(sai[i] == maiorElemento(ent, e)){
-            comp_prio++;
-            for(j=0; j<e; j++){
-                if(ent[j] == maiorElemento(ent, e)){
-                    ent[j] = 0;
-                }
-            }
-        }
-    }
-
-    if(comp_prio == s){
-        return True;
-    }
-    else return False;
-
-}
-
-int deletarElemento(int vet[], int alvo) {
-    int i = 0;
-
-    do {
-        if (vet[i] == alvo) {
-            vet[i] = 0;
-            return SUCESSO;
-        }
-        i++;
-    } while (vet[i] != NULL);
-
-    return -1;
-}
-
-int main(int argc, char** argv) {
-
-    int cod, entrada[Tamanho_Vet], e = 0, s = 0, numInstrucoes = 0, num;
-    //cod = codigo de entrada
-    //entrada = vetor que grava o numero que será inserido
-    //saida = vetor do numero que deve ser retirado
-    //e = parametro do vetor entrada
-    //s = parametro do vetor saida
-
-    printf("Digite '1' para inserir um numero, '2' para  retirar e '0' para finalizar programa.\n");
 
     /*======================================================*/
-    do {
-        e = 0;
-        printf("Digite 0 para sair\nNumero de instrucoes: ");
-        scanf("%i", &numInstrucoes);
+    do{
+    printf("Digite 0 para sair\nNumero de instrucoes: ");
+    scanf("%i", &numInstrucoes);
 
-        for (int i = 0; i < numInstrucoes; i++) {
+        for (i = 0; i < numInstrucoes; i++) {
+            printf("%d", i);
 
             printf("> ");
             scanf("%i %i", &cod, &num);
@@ -136,15 +94,31 @@ int main(int argc, char** argv) {
             }
 
             if (cod == 2) {
-                // compara()
-                if (deletarElemento(entrada, num) == 1) {
-
+                for(int j=0; j <e; j++){
+                    if( num == entrada[j]){
+                        comp_p += compara_pilha(entrada, num, e);
+                        comp_f += compara_fila(entrada, num, s);
+                        comp_fp += prioridade(entrada, num, e);
+                        s++;
+                        exclui_vetor(entrada, num, e);
+                        e--;
+                    }
                 }
             }
-
         }
-    } while (numInstrucoes != 0);
+        
+        if(comp_p == s){
+            printf("stack\n");
+        }
+        else if(comp_f == s){
+            printf("queue\n");
+        }
+        else if(comp_fp == s){
+            printf("priority queue\n");
+        }   
+    }while(numInstrucoes != 0);
     /*======================================================*/
-
+    
+    
     return SUCESSO;
 }
