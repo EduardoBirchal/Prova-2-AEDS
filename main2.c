@@ -94,9 +94,23 @@ int prioridade(int ent[], int sai[], int e, int s){
 
 }
 
-int main(int argc, char** argv){
-    
-    int cod, entrada[Tamanho_Vet], saida[Tamanho_Vet],  e = 0, s = 0; 
+int deletarElemento(int vet[], int alvo) {
+    int i = 0;
+
+    do {
+        if (vet[i] == alvo) {
+            vet[i] = 0;
+            return SUCESSO;
+        }
+        i++;
+    } while (vet[i] != NULL);
+
+    return -1;
+}
+
+int main(int argc, char** argv) {
+
+    int cod, entrada[Tamanho_Vet], e = 0, s = 0, numInstrucoes = 0, num;
     //cod = codigo de entrada
     //entrada = vetor que grava o numero que será inserido
     //saida = vetor do numero que deve ser retirado
@@ -107,7 +121,8 @@ int main(int argc, char** argv){
 
     /*======================================================*/
     do {
-        printf("Digite 0 para sair/nNumero de instrucoes: ");
+        e = 0;
+        printf("Digite 0 para sair\nNumero de instrucoes: ");
         scanf("%i", &numInstrucoes);
 
         for (int i = 0; i < numInstrucoes; i++) {
@@ -121,35 +136,15 @@ int main(int argc, char** argv){
             }
 
             if (cod == 2) {
+                // compara()
+                if (deletarElemento(entrada, num) == 1) {
 
+                }
             }
 
         }
     } while (numInstrucoes != 0);
     /*======================================================*/
 
-    if(compara_se_impossible(entrada, saida, e, s) == False){
-        printf("Impossible\n");
-    }else{
-        //if( prioridade(entrada, saida, e, s) == compara_fila(entrada, saida, s) ){
-           // printf("Not sure\n");
-       // }
-        //else if(prioridade(entrada, saida, e, s) == compara_pilha(entrada, saida, e, s)){
-            //printf("Not sure\n");
-        //}// SA PORRA TA ESTRANHA
-        else{
-            if(prioridade(entrada, saida, e, s) == True){
-                printf("priority queue\n");
-            }
-            if(compara_pilha(entrada, saida, e, s) == True){
-                printf("stack\n");
-            }
-            if(compara_fila(entrada, saida, s) == True){
-                printf("queue\n");
-            }
-        }
-    }
-    
-    
     return SUCESSO;
 }
