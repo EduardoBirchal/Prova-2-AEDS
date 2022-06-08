@@ -122,3 +122,11 @@ int main(int argc, char** argv){
     
     return SUCESSO;
 }
+
+/*
+    - Consertar comparação de pilha
+    - Consertar comparação de prioridade
+    - Fazer o impossible
+    - Fazer o not sure
+    - Input de arquivo
+*/
