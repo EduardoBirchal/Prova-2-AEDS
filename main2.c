@@ -17,35 +17,15 @@ int maiorElemento(int ent[], int e) {
     return maior;
 }
 
-int compara_se_impossible(int ent[], int sai[], int e, int s){
-
-    int i, j, comp = 0;
-
-    for(i = 0; i < s; i++){
-        for(j = 0; j<e; j++){
-            if(sai[i] == ent[j]){
-                comp++;
-            }
-        }
-    }
-
-    if(comp == s){
-        return True;
-    }
-    else return False;
-
-
-}
-
-
 int compara_pilha(int ent[], int sai[], int e, int s){
 
-    int i, j, comp_pilha=0;
+    int i, j = 0, comp_pilha = 0;
 
-    for(i=e, j=0; i>=0, j < s; i--, j++){ //percorre i e j ao mesmo tempo
+    for(i=e; i>=0; i--){ //percorre i e j ao mesmo tempo
   
-        if(sai[j] == ent[i]){
+        if(sai[j] == ent[i] && j < s){
             comp_pilha++;
+            j++;
         }
     }
 
@@ -96,16 +76,17 @@ int prioridade(int ent[], int sai[], int e, int s){
 
 int main(int argc, char** argv){
     
-    int cod, entrada[Tamanho_Vet], saida[Tamanho_Vet],  e = 0, s = 0; 
+    int num, cod, entrada[Tamanho_Vet], saida[Tamanho_Vet],  e = 0, s = 0, i; 
     //cod = codigo de entrada
     //entrada = vetor que grava o numero que será inserido
     //saida = vetor do numero que deve ser retirado
     //e = parametro do vetor entrada
     //s = parametro do vetor saida
 
-    printf("Digite '1' para inserir um numero, '2' para  retirar e '0' para finalizar programa.\n");
+    printf("quantos operacoes serão gravadas?");
+    scanf("%d", &num);
 
-    do{
+    for(i = 0; i <num; i++){
 
         scanf("%d", &cod);
 
@@ -118,30 +99,15 @@ int main(int argc, char** argv){
             scanf("%d", &saida[s]);
             s++;
         }
-        
-    }while(cod !=0);
-
-    if(compara_se_impossible(entrada, saida, e, s) == False){
-        printf("Impossible\n");
-    }else{
-        //if( prioridade(entrada, saida, e, s) == compara_fila(entrada, saida, s) ){
-           // printf("Not sure\n");
-       // }
-        //else if(prioridade(entrada, saida, e, s) == compara_pilha(entrada, saida, e, s)){
-            //printf("Not sure\n");
-        //}// SA PORRA TA ESTRANHA
-        else{
-            if(prioridade(entrada, saida, e, s) == True){
-                printf("priority queue\n");
-            }
-            if(compara_pilha(entrada, saida, e, s) == True){
-                printf("stack\n");
-            }
-            if(compara_fila(entrada, saida, s) == True){
-                printf("queue\n");
-            }
-        }
     }
+    
+    if(compara_pilha(entrada, saida, e, s) == True){
+        printf("stack\n");
+    }
+    else if(compara_fila(entrada, saida, s) == True){
+        printf("queue\n");
+    }
+    else printf("Impossible\n");
 
     return SUCESSO;
 }
