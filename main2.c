@@ -68,13 +68,12 @@ void exclui_vetor(int ent[], int n, int e){
             ent[k + 1] = aux;
                 
         }
-        printf("%d\n", ent[k]);
     }
 }
 
 int main(int argc, char** argv){
     
-    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, comp_p, comp_f, comp_fp, num, numInstrucoes; 
+    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, p, f, fp, num, numInstrucoes, imp = 0; 
 
 
     /*======================================================*/
@@ -94,29 +93,37 @@ int main(int argc, char** argv){
             }
 
             if (cod == 2) {
-                for(int j=0; j <e; j++){
-                    if( num == entrada[j]){
-                        comp_p += compara_pilha(entrada, num, e);
-                        comp_f += compara_fila(entrada, num, s);
-                        comp_fp += prioridade(entrada, num, e);
-                        s++;
-                        exclui_vetor(entrada, num, e);
-                        e--;
-                    }
+                
+                if(num != entrada[0] && num != entrada[e] && num != maiorElemento(entrada, e)){
+                    //checa se o numero esta no começo, fim ou se é o maior numero do vetor.
+                    imp++;
+                }else{
+                    p += compara_pilha(entrada, num, e);
+                    f += compara_fila(entrada, num, s);
+                    fp += prioridade(entrada, num, e);
+                    s++;
+                    exclui_vetor(entrada, num, e);
+                    e--;
                 }
             }
         }
         
-        if(comp_p == s){
-            printf("stack\n");
+        if(imp != 0){
+            printf("Impossible\n");
+        }else{
+
+            if(p == s){
+                printf("stack\n");
+            }
+            if(f == s){
+                printf("queue\n");
+            }
+            if(fp == s){
+                printf("priority queue\n");
+            }   
         }
-        else if(comp_f == s){
-            printf("queue\n");
-        }
-        else if(comp_fp == s){
-            printf("priority queue\n");
-        }   
     }while(numInstrucoes != 0);
+    
     /*======================================================*/
     
     
@@ -126,7 +133,7 @@ int main(int argc, char** argv){
 /*
     - Consertar comparação de pilha
     - Consertar comparação de prioridade
-    - Fazer o impossible
+    - Fazer o impossible (feito *ACHO*)
     - Fazer o not sure
     - Input de arquivo
 */
