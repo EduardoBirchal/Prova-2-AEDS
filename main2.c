@@ -21,10 +21,9 @@ int compara_pilha(int ent[], int n, int e){
 
     int i = e;
 
-    if(n == ent[i]){
+    if(n == ent[e -1]){
         return True;
     }
-    
 
     return False;
 }
@@ -55,6 +54,7 @@ int prioridade(int ent[], int n, int e){
     return False;
 
 }
+
 void exclui_vetor(int ent[], int n, int e){
 
     int aux;
@@ -73,7 +73,7 @@ void exclui_vetor(int ent[], int n, int e){
 
 int main(int argc, char** argv){
     
-    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, p, f, fp, num, numInstrucoes, imp = 0; 
+    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, p = 0, f = 0, fp = 0, num, numInstrucoes, imp = 0; 
 
 
     /*======================================================*/
@@ -94,17 +94,17 @@ int main(int argc, char** argv){
 
             if (cod == 2) {
                 
-                if(num != entrada[0] && num != entrada[e] && num != maiorElemento(entrada, e)){
+                if(num != entrada[0] && num != entrada[e - 1] && num != maiorElemento(entrada, e)){
                     //checa se o numero é diferente do começo, do fim ou do maior numero do vetor.
                     imp++;
-                }else{
-                    p += compara_pilha(entrada, num, e);
-                    f += compara_fila(entrada, num, s);
-                    fp += prioridade(entrada, num, e);
-                    s++;
-                    exclui_vetor(entrada, num, e);
-                    e--;
                 }
+                p += compara_pilha(entrada, num, e);
+                f += compara_fila(entrada, num, s);
+                fp += prioridade(entrada, num, e);
+                s++;
+                exclui_vetor(entrada, num, e);
+                e--;
+                
             }
         }
         
