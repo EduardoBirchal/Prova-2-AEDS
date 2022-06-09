@@ -18,9 +18,6 @@ int maiorElemento(int ent[], int e) {
 }
 
 int compara_pilha(int ent[], int n, int e){
-
-    int i = e;
-
     if(n == ent[e -1]){
         return True;
     }
@@ -29,13 +26,11 @@ int compara_pilha(int ent[], int n, int e){
 }
 
 int compara_fila(int ent[], int n, int s){
-
     int i;
-
+    
     if(s == 0){
         s++;
     }
-
     for(i=0; i<s; i++){
         if(n == ent[i]){
             return True;
@@ -45,14 +40,11 @@ int compara_fila(int ent[], int n, int s){
 }
 
 int prioridade(int ent[], int n, int e){
-
-
     if(n == maiorElemento(ent, e)){
         return True;
     }
 
     return False;
-
 }
 
 void exclui_vetor(int ent[], int n, int e){
@@ -108,7 +100,7 @@ int main(int argc, char** argv){
             }
         }
         
-        if(imp != 0){
+        if(imp != 0 || p*f != 0){
             printf("Impossible\n");
         }else{
 
@@ -123,9 +115,7 @@ int main(int argc, char** argv){
             }   
         }
     }while(numInstrucoes != 0);
-    
     /*======================================================*/
-    
     
     return SUCESSO;
 }
