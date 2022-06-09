@@ -95,7 +95,7 @@ int main(int argc, char** argv){
             if (cod == 2) {
                 
                 if(num != entrada[0] && num != entrada[e] && num != maiorElemento(entrada, e)){
-                    //checa se o numero esta no começo, fim ou se é o maior numero do vetor.
+                    //checa se o numero é diferente do começo, do fim ou do maior numero do vetor.
                     imp++;
                 }else{
                     p += compara_pilha(entrada, num, e);
