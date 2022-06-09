@@ -18,6 +18,7 @@ int maiorElemento(int ent[], int e) {
 }
 
 int compara_pilha(int ent[], int n, int e){
+
     if(n == ent[e -1]){
         return True;
     }
@@ -26,11 +27,13 @@ int compara_pilha(int ent[], int n, int e){
 }
 
 int compara_fila(int ent[], int n, int s){
+
     int i;
-    
+
     if(s == 0){
         s++;
     }
+
     for(i=0; i<s; i++){
         if(n == ent[i]){
             return True;
@@ -40,11 +43,14 @@ int compara_fila(int ent[], int n, int s){
 }
 
 int prioridade(int ent[], int n, int e){
+
+
     if(n == maiorElemento(ent, e)){
         return True;
     }
 
     return False;
+
 }
 
 void exclui_vetor(int ent[], int n, int e){
@@ -65,57 +71,68 @@ void exclui_vetor(int ent[], int n, int e){
 
 int main(int argc, char** argv){
     
-    int i, cod, entrada[Tamanho_Vet],  e = 0, s = 0, p = 0, f = 0, fp = 0, num, numInstrucoes, imp = 0; 
+    int i, cod, entrada[Tamanho_Vet],  e, s, p, f, fp, num, numInstrucoes, imp = 0; 
 
 
     /*======================================================*/
     do{
-    printf("Digite 0 para sair\nNumero de instrucoes: ");
-    scanf("%i", &numInstrucoes);
+        e = 0;
+        s = 0;
+        p = 0;
+        f = 0;
+        fp = 0;
 
-        for (i = 0; i < numInstrucoes; i++) {
-            printf("%d", i);
+        printf("Digite 0 para sair\nNumero de instrucoes: ");
+        scanf("%i", &numInstrucoes);
 
-            printf("> ");
-            scanf("%i %i", &cod, &num);
+            for (i = 0; i < numInstrucoes; i++) {
+                printf("%d", i);
 
-            if (cod == 1) {
-                entrada[e] = num;
-                e++;
-            }
+                printf("> ");
+                scanf("%i %i", &cod, &num);
 
-            if (cod == 2) {
-                
-                if(num != entrada[0] && num != entrada[e - 1] && num != maiorElemento(entrada, e)){
-                    //checa se o numero é diferente do começo, do fim ou do maior numero do vetor.
-                    imp++;
+                if (cod == 1) {
+                    entrada[e] = num;
+                    e++;
                 }
-                p += compara_pilha(entrada, num, e);
-                f += compara_fila(entrada, num, s);
-                fp += prioridade(entrada, num, e);
-                s++;
-                exclui_vetor(entrada, num, e);
-                e--;
-                
-            }
-        }
-        
-        if(imp != 0 || p*f != 0){
-            printf("Impossible\n");
-        }else{
 
-            if(p == s){
-                printf("stack\n");
+                if (cod == 2) {
+                    
+                    if(num != entrada[0] && num != entrada[e - 1] && num != maiorElemento(entrada, e)){
+                        //checa se o numero é diferente do começo, do fim ou do maior numero do vetor.
+                        imp++;
+                    }
+                    p += compara_pilha(entrada, num, e);
+                    f += compara_fila(entrada, num, s);
+                    fp += prioridade(entrada, num, e);
+                    s++;
+                    exclui_vetor(entrada, num, e);
+                    e--;
+                    
+                }
             }
-            if(f == s){
-                printf("queue\n");
+            
+            if(imp != 0){
+                printf("Impossible\n");
+            }else{
+                if(p == s && fp == s || fp == s && f == s){
+                    printf("Not Sure\n");
+                }else{
+                    if(p == s){
+                        printf("stack\n");
+                    }
+                    if(f == s){
+                        printf("queue\n");
+                    }
+                    if(fp == s){
+                        printf("priority queue\n");
+                    }   
+                }
             }
-            if(fp == s){
-                printf("priority queue\n");
-            }   
-        }
     }while(numInstrucoes != 0);
+    
     /*======================================================*/
+    
     
     return SUCESSO;
 }
